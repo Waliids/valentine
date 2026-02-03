@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(-45deg, #ff0000, #8b0000, #ff4d6d, #b30000);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            text-align: center;
+            color: white;
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            width: 100%;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #yesBtn {
+            background-color: #ffffff;
+            color: #d60000;
+            z-index: 1000;
+            animation: pulse 1.5s infinite;
+        }
+
+        .gold-mode {
+            background-color: #ffd700 !important;
+            color: #000 !important;
+            box-shadow: 0 0 30px #ffd700 !important;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(255, 255, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+
+        #noBtn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: absolute;
+            z-index: 500;
+            min-width: 150px;
+            white-space: nowrap;
+        }
+
+        .shake-active {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateX(10px) rotate(5deg);
+            }
+
+            75% {
+                transform: translateX(-5px) rotate(-2deg);
+            }
+        }
+
+        .success-content {
+            display: none;
+            z-index: 2000;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .wolof-text {
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            line-height: 1.6;
+            font-style: italic;
+            margin: 20px auto;
+        }
+
+        .promise-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+            .promise-list li {
+                margin: 10px 0;
+                opacity: 0;
+                animation: slideIn 0.8s forwards;
+            }
+
+        /* Walid's Signature Style */
+        .signature {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            font-size: 1.5rem;
+            font-family: 'Brush Script MT', cursive, sans-serif;
+            opacity: 0;
+            animation: slideIn 1s forwards;
+            animation-delay: 3s; /* Appears after everything else */
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .flower-container {
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .rose {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            background: #ff0040;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .stem {
+            width: 6px;
+            height: 80px;
+            background: #2d5a27;
+            margin: -10px auto 0;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .particle {
+            position: absolute;
+            top: -50px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz" class="main-container">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="showLove()">Yes!</button>
+            <button id="noBtn" onmouseover="moveButton()" style="margin-left: 20px; position: static;">No</button>
+        </div>
+    </div>
+
+    <div id="success" class="success-content">
+        <h1>YAAAAAY! ❤️</h1>
+        <p class="wolof-text">Ci sunu mbëggeel — ma ñaan mu dul jeex ci dund ak ginnaaw, te Ya Rabbi na bind sunu tur yi ci téeréem, jàppandoo.</p>
+        <ul class="promise-list">
+            <li style="animation-delay: 0.5s">✨ I promise to always make you smile.</li>
+            <li style="animation-delay: 1.2s">✨ I promise to be your biggest supporter.</li>
+            <li style="animation-delay: 1.9s">✨ I promise to love you dëgg-dëgg!</li>
+        </ul>
+        <div class="flower-container">
+            <div class="rose"></div>
+            <div class="stem"></div>
+        </div>
+        <div class="signature">- Walid</div>
+    </div>
+
+    <script>
+        const noMessages = [
+            "No? Xoolaat ko bu baax! 🤔", "Bul ma sonnal waay 😂",
+            "Danga réer? 'Yes' laa wax!", "Ma ngi lay ñaan déh... 🙏",
+            "T'es drôle toi...! 🏃‍♀️", "Ely do si waax ?? 🤼‍♂️",
+            "Dafa doy! Niëwal ci 'Yes'!", "Sama xol bi day tàkk 🔥",
+            "Ngone libère moi ?!!!", "DAMALA BOUGA, dëgg la! ❤️"
+        ];
+        let messageIndex = 0;
+        let yesScale = 1;
+
+        function moveButton() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+
+            noBtn.style.position = 'absolute';
+            noBtn.innerText = noMessages[messageIndex];
+            messageIndex = (messageIndex + 1) % noMessages.length;
+
+            yesScale += 0.15;
+            yesBtn.style.transform = `scale(${yesScale})`;
+            if (yesScale > 3) yesBtn.classList.add('gold-mode');
+
+            const padding = 100;
+            const yesRect = yesBtn.getBoundingClientRect();
+            let newX, newY;
+            let isOverlapping = true;
+
+            while (isOverlapping) {
+                newX = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding) + padding / 2;
+                newY = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding) + padding / 2;
+
+                const distX = Math.abs(newX - yesRect.left);
+                const distY = Math.abs(newY - yesRect.top);
+
+                if (distX > 250 || distY > 250) {
+                    isOverlapping = false;
+                }
+            }
+
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+
+            noBtn.classList.remove('shake-active');
+            void noBtn.offsetWidth;
+            noBtn.classList.add('shake-active');
+        }
+
+        function showLove() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            document.body.style.animation = "none";
+            document.body.style.background = "#ff4d6d";
+
+            for (let i = 0; i < 40; i++) {
+                setTimeout(createParticle, i * 40);
+            }
+        }
+
+        function createParticle() {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.innerText = ['🌸', '🌹', '✨', '🤍', '❤️'][Math.floor(Math.random() * 5)];
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            p.style.fontSize = (Math.random() * 20 + 20) + "px";
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 5000);
+        }
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>
